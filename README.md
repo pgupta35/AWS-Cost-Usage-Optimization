@@ -10,10 +10,10 @@
 **Deliverables**:
 - Wring SQL Queries for generating bill usage and Cost report for various Customer using Redshift and Creating Reports using QuickSight.
 
-1. Import AWS Partner Billing and Cost Report in CSV format into Amazon Redshift for Querying the reports data through SQL commands
+Import AWS Partner Billing and Cost Report in CSV format into Amazon Redshift for Querying the reports data through SQL commands and Import into Amazon QuickSight for generating Customized Analytics Chart Report with data filtering.
 
 <details>
-<summary>Usecase Workflow</summary>
+  <summary><b>Usecase Workflow</b></summary>
 
 **Step 1: Upload the sample file (Sample Partner CUR.csv) to an Amazon S3 bucket:**
   <br>
@@ -73,32 +73,32 @@ SQL Query to limit the Data Tables with 10 entries:
 
 **To filter the AWS costs based on Product Code and Availability zone:**
 <br>
-**select lineitem_productcode, lineitem_availabilityzone, sum(cast(lineitem_unblendedcost as float)) from AWSBillingPartner_Test where lineitem_availabilityzone <> '' group by lineitem_availabilityzone, lineitem_productcode;**
+**$ select lineitem_productcode, lineitem_availabilityzone, sum(cast(lineitem_unblendedcost as float)) from AWSBillingPartner_Test where lineitem_availabilityzone <> '' group by lineitem_availabilityzone, lineitem_productcode;**
 <br>
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/2-SQL-Query-Calculate-the-cost-based-on-awsEC2usage.PNG">
 
 **To filter the AWS costs based on UserAccountID, Usage Type Group and Availability zone:
 <br>
-select DISTINCT lineitem_usageaccountid as User_Account, lineitem_productcode as Product_Usage, lineitem_availabilityzone as User_AZ, sum(cast(lineitem_unblendedcost as float)) as Userusage_cost from AWSBillingPartner_Test where lineitem_usageaccountid IS NOT NULL and lineitem_availabilityzone IS NOT NULL group by lineitem_availabilityzone, lineitem_productcode, lineitem_usageaccountid;**
+$ select DISTINCT lineitem_usageaccountid as User_Account, lineitem_productcode as Product_Usage, lineitem_availabilityzone as User_AZ, sum(cast(lineitem_unblendedcost as float)) as Userusage_cost from AWSBillingPartner_Test where lineitem_usageaccountid IS NOT NULL and lineitem_availabilityzone IS NOT NULL group by lineitem_availabilityzone, lineitem_productcode, lineitem_usageaccountid;**
 <br>
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/3-SQL-Query-filter-based-on-resources.PNG">
 
 **To filter the AWS costs based AWS S3 service usage:
 <br>
-select sum(cast(lineitem_unblendedcost as float)) as user_usagecost from AWSBillingPartner_Test where lineitem_productcode='AmazonS3' or pricing_unit='GB';**
+$ select sum(cast(lineitem_unblendedcost as float)) as user_usagecost from AWSBillingPartner_Test where lineitem_productcode='AmazonS3' or pricing_unit='GB';**
 <br>
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/2-SQL-Query-Calculate-the-cost-based-on-awss3usage.PNG">
 
 
 **To filter the AWS costs based AWS EC2 service usage:
 <br>
-select lineitem_usageaccountid as user_accountid, sum(cast(lineitem_unblendedcost as float)) as user_usagecost from AWSBillingPartner_Test where lineitem_productcode='AmazonEC2' group by lineitem_usageaccountid;**
+$ select lineitem_usageaccountid as user_accountid, sum(cast(lineitem_unblendedcost as float)) as user_usagecost from AWSBillingPartner_Test where lineitem_productcode='AmazonEC2' group by lineitem_usageaccountid;**
 <br>
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/2-SQL-Query-Calculate-the-cost-based-on-awsEC2usage.PNG">
 
 **To calculate the Cost based on the Services and utilization date:
 <br>
-select sum(cast(lineitem_unblendedcost as float)) from AWSBillingPartner_Test where lineitem_productcode='AmazonS3' or lineitem_productcode='AmazonEc2' and bill_BillingPeriodEndDate > '2018-03-01';**
+$ select sum(cast(lineitem_unblendedcost as float)) from AWSBillingPartner_Test where lineitem_productcode='AmazonS3' or lineitem_productcode='AmazonEc2' and bill_BillingPeriodEndDate > '2018-03-01';**
 
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/3-SQL-Query-Calculate-the-cost-based-on-services_%26_date.PNG">
 
@@ -116,6 +116,11 @@ select sum(cast(lineitem_unblendedcost as float)) from AWSBillingPartner_Test wh
 <br>
 <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/download_customized_data_in_csv_format_.PNG">
 
+</details>
+
+<details>
+  <summary><b>Mail Content</b></summary>
+  <img src="https://github.com/sahanasj/AWS-Cost-Usage-Optimization/blob/master/AWS-Partner-Billing-Reports-Screenshots/AWS-Cost-Optimization.PNG">
 </details>
   
 
